@@ -11,7 +11,6 @@ The data is stored in a PostgreSQL database and served through a Node.js + Expre
 🔗 **Live Demo / Video:**  
 [Add your Google Drive link here]
 
-> Upload a short video or extra screenshots of the working app to Google Drive and paste the public link above.
 
 ---
 
@@ -20,17 +19,22 @@ The data is stored in a PostgreSQL database and served through a Node.js + Expre
 ### Desktop - Light Mode
 ![Desktop Light Mode](images/desktop.png)
 
+### Desktop - Light Mode - Table
+![Desktop Light Mode](images/desktop-table.png)
+
 ### Desktop - Dark Mode
+![Desktop Dark Mode](images/desktop-dark.png)
+
+### Desktop - Dark Mode -Table
 ![Desktop Dark Mode](images/desktop-dark.png)
 
 ### Mobile View
 ![Mobile](images/mobile.png)
+![Mobile](images/mobile-2.png)
 
 ### Mobile Table
 ![Mobile Table](images/mobile-table.png)
 
-> Put your screenshot files inside the `images` folder.  
-> Replace the file names above if your images have different names.
 
 ---
 
@@ -104,8 +108,8 @@ expense-tracker/
 │   ├── server.js
 │   ├── package.json
 │   ├── schema.sql
-│   └── .env.example
-├── images/               ← screenshots go here
+│   └── test-screenshots/
+├── images/               
 └── README.md
 ```
 
@@ -128,22 +132,6 @@ Once the pattern of “send request → refresh from the server” was clear, th
 
 ## Author
 
-Your Name  
+Omar salah mohammad shilbaya
 Dalil Academy – Full Stack Web Development
 ```
-
-The file is ready at:
-
-**`/home/workdir/artifacts/README.md`**
-
-You can download it and replace your current README with this one.
-
-### Quick checklist of what I added:
-- Demo section with placeholder for Google Drive link
-- Better Screenshots section (with dark mode + notes)
-- Clear separation between Required Features and Bonus Features
-- Project Structure section
-- Tech Stack section
-- Kept your original “hardest part” text (you can edit it later if you want)
-
-Would you like me to change anything else in it?
