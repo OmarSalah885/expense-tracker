@@ -1,0 +1,96 @@
+/* ========== LIGHT MODE ========== */
+:root, [data-bs-theme="light"] {
+  --bs-body-bg: #f0fdf4;
+  --bs-body-color: #14532d;
+  --bs-primary: #059669;
+  --bs-primary-rgb: 5, 150, 105;
+  --bs-secondary-color: #4b5563;
+  --bs-border-color: #bbf7d0;
+  --bs-card-bg: #ffffff;
+}
+
+/* ========== DARK MODE ========== */
+[data-bs-theme="dark"] {
+  --bs-body-bg: #0f172a;
+  --bs-body-color: #e2e8f0;
+  --bs-primary: #34d399;
+  --bs-primary-rgb: 52, 211, 153;
+  --bs-secondary-color: #94a3b8;
+  --bs-border-color: #1e293b;
+  --bs-card-bg: #1e293b;
+}
+/* Vibrant fixed category badge colors */
+.badge-food {
+  background-color: #22c55e !important;
+  color: white !important;
+}
+
+.badge-transport {
+  background-color: #3b82f6 !important;
+  color: white !important;
+}
+
+.badge-bills {
+  background-color: #f59e0b !important;
+  color: white !important;
+}
+
+.badge-entertainment {
+  background-color: #06b6d4 !important;
+  color: white !important;
+}
+
+.badge-other {
+  background-color: #8b5cf6 !important;
+  color: white !important;
+}
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+#loading-overlay {
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 2000;
+  transition: opacity 0.3s ease;
+}
+
+#loading-overlay.overlay-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-bs-theme="dark"] #loading-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#category-chart {
+  max-height: 260px;
+}
+
+th.sortable:hover {
+  text-decoration: underline;
+  color: var(--bs-primary);
+}
