@@ -14,6 +14,14 @@ The data is stored in a PostgreSQL database and served through a Node.js + Expre
 
 ---
 
+## GitHub Repo
+
+🔗 **Github Repo link:**  
+[https://github.com/OmarSalah885/expense-tracker]
+
+
+---
+
 ## Screenshots
 
 ### Desktop - Light Mode
