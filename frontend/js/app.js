@@ -38,7 +38,9 @@ async function addExpense(data) {
   });
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err.error || err.message || `HTTP error: ${response.status}`);
+    throw new Error(
+      err.error || err.message || `HTTP error: ${response.status}`,
+    );
   }
   return response.json();
 }
@@ -51,7 +53,9 @@ async function updateExpense(id, data) {
   });
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err.error || err.message || `HTTP error: ${response.status}`);
+    throw new Error(
+      err.error || err.message || `HTTP error: ${response.status}`,
+    );
   }
   return response.json();
 }
@@ -60,7 +64,9 @@ async function deleteExpense(id) {
   const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
-    throw new Error(err.error || err.message || `HTTP error: ${response.status}`);
+    throw new Error(
+      err.error || err.message || `HTTP error: ${response.status}`,
+    );
   }
 }
 
@@ -75,14 +81,35 @@ function showErrorAlert(message) {
   `;
   container.prepend(alert);
 }
+function showSuccessAlert(message) {
+  const container = document.getElementById("alert-container");
+  const alert = document.createElement("div");
+  alert.className = "alert alert-success alert-dismissible fade show mb-3";
+  alert.setAttribute("role", "alert");
+  alert.innerHTML = `
+    ${message}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  `;
+  container.prepend(alert);
 
+  // // Optional: remove the success alert after 3 seconds
+  // setTimeout(() => {
+  //   alert.classList.remove("show");
+  //   setTimeout(() => alert.remove(), 150);
+  // }, 3000);
+}
 function getCategoryBadgeClass(category) {
   switch (category) {
-    case "Food": return "badge-food";
-    case "Transport": return "badge-transport";
-    case "Bills": return "badge-bills";
-    case "Entertainment": return "badge-entertainment";
-    default: return "badge-other";
+    case "Food":
+      return "badge-food";
+    case "Transport":
+      return "badge-transport";
+    case "Bills":
+      return "badge-bills";
+    case "Entertainment":
+      return "badge-entertainment";
+    default:
+      return "badge-other";
   }
 }
 
@@ -96,7 +123,10 @@ function showSpinner(show) {
 }
 
 function getFilteredAndSortedExpenses() {
-  const search = document.getElementById("search-title").value.trim().toLowerCase();
+  const search = document
+    .getElementById("search-title")
+    .value.trim()
+    .toLowerCase();
   const month = document.getElementById("month-filter").value;
   const category = document.getElementById("category-filter").value;
 
@@ -144,7 +174,7 @@ function renderSummary(expenses) {
 
   const highest = expenses.length
     ? expenses.reduce((max, cur) =>
-        Number(cur.amount) > Number(max.amount) ? cur : max
+        Number(cur.amount) > Number(max.amount) ? cur : max,
       )
     : null;
 
@@ -153,7 +183,9 @@ function renderSummary(expenses) {
   document.getElementById("highest-amount").textContent = highest
     ? Number(highest.amount).toFixed(2)
     : "0.00";
-  document.getElementById("highest-title").textContent = highest ? highest.title : "-";
+  document.getElementById("highest-title").textContent = highest
+    ? highest.title
+    : "-";
 }
 
 function renderTable(expenses) {
@@ -183,6 +215,7 @@ function renderTable(expenses) {
       try {
         showSpinner(true);
         await deleteExpense(id);
+        showSuccessAlert("Expense deleted successfully");
         await refresh();
       } catch (err) {
         showErrorAlert(err.message);
@@ -199,7 +232,8 @@ function renderTable(expenses) {
       document.getElementById("edit-id").value = row.dataset.id;
       document.getElementById("edit-title").value = cells[0].textContent;
       document.getElementById("edit-amount").value = cells[1].textContent;
-      document.getElementById("edit-category").value = cells[2].textContent.trim();
+      document.getElementById("edit-category").value =
+        cells[2].textContent.trim();
       document.getElementById("edit-date").value = cells[3].textContent;
       const modal = new bootstrap.Modal(document.getElementById("edit-modal"));
       modal.show();
@@ -228,7 +262,8 @@ function renderChart(expenses) {
     categoryChart.destroy();
   }
 
-  const isDark = document.documentElement.getAttribute("data-bs-theme") === "dark";
+  const isDark =
+    document.documentElement.getAttribute("data-bs-theme") === "dark";
   const colors = isDark ? darkColors : lightColors;
 
   categoryChart = new Chart(ctx, {
@@ -261,7 +296,9 @@ async function refresh() {
     renderChart(allExpenses);
     applyFilters();
   } catch (err) {
-    showErrorAlert(err.message || "Could not load expenses. Is the server running?");
+    showErrorAlert(
+      err.message || "Could not load expenses. Is the server running?",
+    );
   } finally {
     showSpinner(false);
   }
@@ -319,6 +356,7 @@ document.getElementById("add-form").addEventListener("submit", async (e) => {
     await addExpense(data);
     form.reset();
     form.classList.remove("was-validated");
+    showSuccessAlert("Expense added successfully");
     await refresh();
   } catch (err) {
     showErrorAlert(err.message);
@@ -345,9 +383,12 @@ document.getElementById("save-changes").addEventListener("click", async () => {
   try {
     showSpinner(true);
     await updateExpense(id, data);
-    const modal = bootstrap.Modal.getInstance(document.getElementById("edit-modal"));
+    const modal = bootstrap.Modal.getInstance(
+      document.getElementById("edit-modal"),
+    );
     modal.hide();
     form.classList.remove("was-validated");
+    showSuccessAlert("Expense updated successfully");
     await refresh();
   } catch (err) {
     showErrorAlert(err.message);
@@ -357,8 +398,12 @@ document.getElementById("save-changes").addEventListener("click", async () => {
 });
 
 document.getElementById("search-title").addEventListener("input", applyFilters);
-document.getElementById("month-filter").addEventListener("change", applyFilters);
-document.getElementById("category-filter").addEventListener("change", applyFilters);
+document
+  .getElementById("month-filter")
+  .addEventListener("change", applyFilters);
+document
+  .getElementById("category-filter")
+  .addEventListener("change", applyFilters);
 
 document.querySelectorAll("th.sortable").forEach((th) => {
   th.addEventListener("click", () => {
@@ -383,7 +428,7 @@ document.getElementById("export-btn").addEventListener("click", async () => {
         Number(exp.amount).toFixed(2),
         exp.category,
         exp.date,
-      ].join(",")
+      ].join(","),
     );
     const csvContent = [headers.join(","), ...rows].join("\n");
 
